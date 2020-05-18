@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import CountUp from 'react-countup'
-import { fetchData } from '../../api'
 import axios from 'axios'
 import styles from './Cards.module.css'
+import cx from 'classnames'
 
 const apiUrl = 'https://covid19.mathdro.id/api'
 
@@ -16,16 +16,24 @@ const Cards = () => {
   useEffect(() => {
     axios
       .get(apiUrl)
-      .then(data => console.log(data))
+      .then(res =>
+        setData({
+          confirmed: res.data.confirmed,
+          recovered: res.data.recovered,
+          deaths: res.data.deaths,
+          lastUpdate: res.data.lastUpdate,
+        })
+      )
       .catch(error => console.log(error))
   }, [])
 
-  if (!confirmed.value) return 'Loading ...'
+  if (!data.confirmed.value) return 'Loading ...'
+  const { confirmed, recovered, deaths, lastUpdate } = data
   return (
     <div className={styles.container}>
       {/* cards using bootstrap */}
-      <div className='row'>
-        <div className='card col-4'>
+      <div className='row flex-nowrap'>
+        <div className={cx(styles.infected, styles.card, 'col-md-4', 'm-1')}>
           <div className='card-body'>
             <h5 className='card-title'>Infected</h5>
             <h6 className='card-subtitle mb-2 text-muted'>
@@ -37,7 +45,7 @@ const Cards = () => {
             <p className='card-text'>Number of active cases of COVID19</p>
           </div>
         </div>
-        <div className='card col-4'>
+        <div className={cx(styles.card, styles.recovered, 'col-md-4', 'm-1')}>
           <div className='card-body'>
             <h5 className='card-title'>Recovered</h5>
             <h6 className='card-subtitle mb-2 text-muted'>
@@ -49,7 +57,7 @@ const Cards = () => {
             <p className='card-text'>Number of recovered cases</p>
           </div>
         </div>
-        <div className='card col-4'>
+        <div className={cx(styles.card, styles.deaths, 'col-md-4', 'm-1')}>
           <div className='card-body'>
             <h5 className='card-title'>Deaths</h5>
             <h6 className='card-subtitle mb-2 text-muted'>
@@ -62,37 +70,6 @@ const Cards = () => {
           </div>
         </div>
       </div>
-
-      {/* <Grid container spaicing={3} justify='center'>
-        <Grid item component={Card}>
-          <Typography color='textSecondary' gutterBottom>
-            Infected
-          </Typography>
-          <Typography variant='h5'>
-            <CountUp start={0} end={confirmed.value} duration={1.5} separator=',' />
-          </Typography>
-          <Typography color='textSecondary'>REAL DATE</Typography>
-          <Typography varient='body2'>Number of active cases of COVID-19</Typography>
-        </Grid>
-
-        <Grid item component={Card}>
-          <Typography color='textSecondary' gutterBottom>
-            Infected
-          </Typography>
-          <Typography variant='h5'>Real data</Typography>
-          <Typography color='textSecondary'>Real Date</Typography>
-          <Typography varient='body2'>Number of recovered</Typography>
-        </Grid>
-
-        <Grid item component={Card}>
-          <Typography color='textSecondary' gutterBottom>
-            Infected
-          </Typography>
-          <Typography variant='h5'>Real data</Typography>
-          <Typography color='textSecondary'>Real Date</Typography>
-          <Typography varient='body2'>Number of deaths</Typography>
-        </Grid>
-      </Grid> */}
     </div>
   )
 }
