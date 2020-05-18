@@ -1,0 +1,8 @@
+.container {
+  width: 40%;
+}
+.container select:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
