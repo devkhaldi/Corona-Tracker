@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Line } from 'react-chartjs-2'
+import { Line, Bar } from 'react-chartjs-2'
 import styles from './Chart.module.css'
 import axios from 'axios'
 
 const apiUrl = 'https://covid19.mathdro.id/api/daily'
 
-const Chart = () => {
+const Chart = ({ countryData = null }) => {
   const [dailyData, setDailyData] = useState([])
 
   useEffect(() => {
@@ -14,8 +14,6 @@ const Chart = () => {
       .then(res => setDailyData(res.data))
       .catch(error => console.log(error))
   }, [])
-
-  console.log('state', dailyData[0])
 
   const lineChart = dailyData.length ? (
     <Line
@@ -40,7 +38,27 @@ const Chart = () => {
     />
   ) : null
 
-  return <div className={styles.container}>{lineChart}</div>
+  const barChart = countryData.confirmed ? (
+    <Bar
+      data={{
+        labels: ['Infected', 'Recovered', 'Deaths'],
+        datasets: [
+          {
+            data: [
+              countryData.confirmed.value,
+              countryData.recovered.value,
+              countryData.deaths.value,
+            ],
+            backgroundColor: ['#22C', '#15A7A7', '#C22'],
+          },
+        ],
+      }}
+    />
+  ) : null
+
+  return (
+    <div className={styles.container}>{barChart !== null ? barChart : lineChart}</div>
+  )
 }
 
 export default Chart

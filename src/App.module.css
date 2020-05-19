@@ -7,4 +7,18 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-repeat: no-repeat;
+  background-position-x: 145%;
+  background-position-y: 0%;
+  background-size: 50%;
+}
+
+.container header {
+  display: flex;
+  align-content: center;
+  margin: 1.5em 0;
+}
+
+.container header img {
+  height: 5em;
 }

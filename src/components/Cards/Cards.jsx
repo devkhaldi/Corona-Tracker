@@ -32,8 +32,8 @@ const Cards = () => {
   return (
     <div className={styles.container}>
       {/* cards using bootstrap */}
-      <div className='row flex-nowrap'>
-        <div className={cx(styles.infected, styles.card, 'col-md-4', 'm-1')}>
+      <div className='row mx-2'>
+        <div className={cx(styles.infected, styles.card, 'col-md-4', 'col-sm-12', 'p-2')}>
           <div className='card-body'>
             <h5 className='card-title'>Infected</h5>
             <h6 className='card-subtitle mb-2 text-muted'>
@@ -45,7 +45,8 @@ const Cards = () => {
             <p className='card-text'>Number of active cases of COVID19</p>
           </div>
         </div>
-        <div className={cx(styles.card, styles.recovered, 'col-md-4', 'm-1')}>
+        <div
+          className={cx(styles.card, styles.recovered, 'col-md-4', 'col-sm-12', 'p-2')}>
           <div className='card-body'>
             <h5 className='card-title'>Recovered</h5>
             <h6 className='card-subtitle mb-2 text-muted'>
@@ -57,7 +58,7 @@ const Cards = () => {
             <p className='card-text'>Number of recovered cases</p>
           </div>
         </div>
-        <div className={cx(styles.card, styles.deaths, 'col-md-4', 'm-1')}>
+        <div className={cx(styles.card, styles.deaths, 'col-md-4', 'col-sm-12', 'p-2')}>
           <div className='card-body'>
             <h5 className='card-title'>Deaths</h5>
             <h6 className='card-subtitle mb-2 text-muted'>
